@@ -3,12 +3,12 @@ import { AssessmentFormData } from '../app/types';
 
 // Email configuration
 const emailConfig = {
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT),
+  secure: process.env.SMTP_SECURE === 'true',
   auth: {
-    user: 'sfernandes.rsmacademy@gmail.com',
-    pass: 'erobcsdfjkgzbpez',
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
   },
 };
 
@@ -28,8 +28,8 @@ export async function sendPersonalDetailsNotification(personalData: {
 }) {
   try {
     const mailOptions = {
-      from: 'sfernandes.rsmacademy@gmail.com',
-      to: 'arpit.m@nexuses.in',
+      from: process.env.SMTP_USER,
+      to: process.env.ADMIN_EMAIL,
       subject: 'New User Started Filling Form',
       html: `
         <h2>This user has started filling the form</h2>
